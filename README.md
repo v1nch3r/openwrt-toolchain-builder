@@ -76,18 +76,6 @@ Edit `config/<target>.conf` to customize:
 - Filesystem support
 - USB/network drivers
 
-## 📋 Comparison with HelmiWrt Toolchain
-
-| Feature | HelmiWrt | This Repo |
-|---------|---------|-----------|
-| Base | coolsnowwolf/lede (2021) | coolsnowwolf/lede (latest) |
-| Workflow | 23 separate files | 1 unified workflow (matrix) |
-| Config | Hardcoded per workflow | Dynamic input parameters |
-| Output | .img only | .img + .tar.gz |
-| Cache | None | ccache support |
-| Cleanup | Manual | Auto old release cleanup |
-| Documentation | Minimal | Full README + comments |
-
 ## 📜 License
 
 MIT — free to use, modify, and distribute.
