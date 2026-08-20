@@ -1,0 +1,8 @@
+*.img
+*.img.gz
+*.tar.gz
+*.zip
+openwrt/
+build/
+*.log
+.DS_Store
