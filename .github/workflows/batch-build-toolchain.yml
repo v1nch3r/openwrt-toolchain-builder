@@ -139,11 +139,15 @@ jobs:
           
           # Use oldconfig with auto-answer (no TUI needed)
           # oldconfig respects existing CONFIG_TARGET_* in .config
-          # "yes ''" answers all new questions with default
+          # "yes ''" answers all new questions with default (just press Enter)
+          # Do NOT use make defconfig — it resets target to x86!
           yes '' | make oldconfig 2>/dev/null || true
           
-          # Run defconfig to finalize (respects existing target)
-          make defconfig
+          # Verify .config is not empty
+          if [ ! -s .config ]; then
+            echo "❌ .config is empty after oldconfig!"
+            exit 1
+          fi
           
           echo "=== Configuration applied ==="
           echo "--- Target check ---"
