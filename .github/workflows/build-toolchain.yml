@@ -163,9 +163,14 @@ jobs:
 
           # --- Method 1: .tar.gz (smaller, universal) ---
           echo "=== Packing .tar.gz ==="
+          # Only pack TARGET toolchain (not host toolchain)
+          # armvirt64/rockchip/bcm27xx → toolchain-aarch64* or toolchain-arm*
+          # x86_64 → toolchain-x86_64*
+          TARGET_TOOLCHAIN=$(ls staging_dir/ | grep "^toolchain-" | grep -v "host" | head -1)
+          echo "Target toolchain: $TARGET_TOOLCHAIN"
           tar -czf "$GITHUB_WORKSPACE/$TOOLCHAIN_NAME.tar.gz" \
             -C staging_dir \
-            $(ls staging_dir/ | grep toolchain)
+            "$TARGET_TOOLCHAIN"
 
           # --- Method 2: .img (mountable, overlay-ready) ---
           echo "=== Packing .img ==="
