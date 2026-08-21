@@ -136,9 +136,25 @@ jobs:
             echo "=== Config $TARGET_CONFIG not found, using minimal ==="
             echo "CONFIG_MAKE_TOOLCHAIN=y" > .config
           fi
-          make defconfig
+          
+          # Run olddefconfig (NOT defconfig) to fill in defaults
+          # without overriding our target selection
+          make olddefconfig
+          
           echo "=== Configuration applied ==="
-          grep -E "^CONFIG_TARGET|^CONFIG_MAKE_TOOLCHAIN|^CONFIG_GCC_VERSION|^CONFIG_BINUTILS" .config || true
+          echo "--- Target check ---"
+          grep -E "^CONFIG_TARGET_" .config || true
+          echo "--- Toolchain check ---"
+          grep -E "^CONFIG_MAKE_TOOLCHAIN|^CONFIG_GCC_VERSION|^CONFIG_BINUTILS" .config || true
+          
+          # VERIFY target is correct — fail if not
+          TARGET_CHECK=$(grep "^CONFIG_TARGET_" .config | head -1)
+          echo "Target: $TARGET_CHECK"
+          if echo "$TARGET_CHECK" | grep -q "x86" && [ "${{ matrix.target }}" != "x86_64" ]; then
+            echo "❌ ERROR: Target is x86 but expected ${{ matrix.target }}!"
+            echo "Config was overridden by defconfig. Check config file."
+            exit 1
+          fi
 
       # ============================================================
       # Step 7: Build toolchain
