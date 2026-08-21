@@ -19,7 +19,7 @@ Build pre-compiled toolchains for multiple targets — download, mount, and star
 | Target | Config | Description |
 |--------|--------|-------------|
 | `x86_64` | `config/x86_64.conf` | PC, firewall appliance, mini PC |
-| `armvirt64` | `config/armvirt64.conf` | ARM virtual (QEMU, Amlogic S9xxx) |
+| `armsr` | `config/armsr.conf` | ARM SystemReady (QEMU, Amlogic S9xxx, generic ARM64) |
 | `bcm27xx` | `config/bcm27xx.conf` | Raspberry Pi 4 (bcm2711) |
 | `bcm27xx_bcm2709` | `config/bcm2709.conf` | Raspberry Pi 2/3 |
 | `rockchip_armv8` | `config/rockchip.conf` | NanoPi R2S/R4S, Orange Pi |

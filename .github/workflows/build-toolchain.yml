@@ -9,7 +9,7 @@ on:
         type: choice
         options:
           - x86_64
-          - armvirt64
+          - armsr
           - bcm27xx
           - bcm2709
           - rockchip
@@ -180,7 +180,7 @@ jobs:
           # --- Method 1: .tar.gz (smaller, universal) ---
           echo "=== Packing .tar.gz ==="
           # Only pack TARGET toolchain (not host toolchain)
-          # armvirt64/rockchip/bcm27xx → toolchain-aarch64* or toolchain-arm*
+          # armsr/rockchip/bcm27xx → toolchain-aarch64* or toolchain-arm*
           # x86_64 → toolchain-x86_64*
           TARGET_TOOLCHAIN=$(ls staging_dir/ | grep "^toolchain-" | grep -v "host" | head -1)
           echo "Target toolchain: $TARGET_TOOLCHAIN"

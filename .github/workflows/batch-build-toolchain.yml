@@ -6,7 +6,7 @@ on:
       targets:
         description: 'Targets to build (comma-separated)'
         required: true
-        default: 'armvirt64,x86_64,rockchip,bcm27xx'
+        default: 'armsr,x86_64,rockchip,bcm27xx'
       source_repo:
         description: 'OpenWrt source repo URL'
         required: true
@@ -252,7 +252,7 @@ jobs:
             | Date | ${{ env.OPENWRT_DATE }} |
 
             ### Targets
-            - armvirt64 → `toolchain-armvirt64-*.tar.gz` / `.img.gz`
+            - armsr → `toolchain-armsr-*.tar.gz` / `.img.gz`
             - x86_64 → `toolchain-x86_64-*.tar.gz` / `.img.gz`
             - rockchip → `toolchain-rockchip-*.tar.gz` / `.img.gz`
             - bcm27xx → `toolchain-bcm27xx-*.tar.gz` / `.img.gz`
