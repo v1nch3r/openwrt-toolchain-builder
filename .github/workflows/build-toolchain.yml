@@ -124,10 +124,13 @@ jobs:
             echo "=== Config $TARGET_CONFIG not found, using minimal ==="
             echo "CONFIG_MAKE_TOOLCHAIN=y" > .config
           fi
-          make olddefconfig
-          echo "=== Configuration applied ==="
-          echo "--- Config summary ---"
-          grep -E "^CONFIG_TARGET|^CONFIG_MAKE_TOOLCHAIN|^CONFIG_GCC_VERSION|^CONFIG_BINUTILS" .config || true
+          # Use oldconfig with auto-answer (no TUI needed)
+          # oldconfig respects existing CONFIG_TARGET_* in .config
+          # "yes ''" answers all new questions with default
+          yes '' | make oldconfig 2>/dev/null || true
+          
+          # Run defconfig to finalize (respects existing target)
+          make defconfig
           
           # VERIFY target is correct — fail if not
           TARGET_CHECK=$(grep "^CONFIG_TARGET_" .config | head -1)

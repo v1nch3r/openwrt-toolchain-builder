@@ -137,9 +137,13 @@ jobs:
             echo "CONFIG_MAKE_TOOLCHAIN=y" > .config
           fi
           
-          # Run olddefconfig (NOT defconfig) to fill in defaults
-          # without overriding our target selection
-          make olddefconfig
+          # Use oldconfig with auto-answer (no TUI needed)
+          # oldconfig respects existing CONFIG_TARGET_* in .config
+          # "yes ''" answers all new questions with default
+          yes '' | make oldconfig 2>/dev/null || true
+          
+          # Run defconfig to finalize (respects existing target)
+          make defconfig
           
           echo "=== Configuration applied ==="
           echo "--- Target check ---"
