@@ -215,18 +215,23 @@ jobs:
         if: ${{ inputs.upload_release }}
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: toolchain-${{ matrix.target }}-${{ env.OPENWRT_DATE }}
-          name: Toolchain ${{ matrix.target }} (${{ env.OPENWRT_DATE }})
+          tag_name: toolchain-batch-${{ env.OPENWRT_DATE }}
+          name: Toolchain Batch (${{ env.OPENWRT_DATE }})
           body: |
-            ## OpenWrt Toolchain — ${{ matrix.target }}
+            ## OpenWrt Toolchain Batch Build
 
             | Info | Value |
             |------|-------|
-            | Target | `${{ matrix.target }}` |
             | Source | `${{ inputs.source_repo }}` |
             | Branch | `${{ inputs.source_branch }}` |
             | Commit | `${{ env.OPENWRT_HASH }}` |
             | Date | ${{ env.OPENWRT_DATE }} |
+
+            ### Targets
+            - armvirt64 → `toolchain-armvirt64-*.tar.gz` / `.img.gz`
+            - x86_64 → `toolchain-x86_64-*.tar.gz` / `.img.gz`
+            - rockchip → `toolchain-rockchip-*.tar.gz` / `.img.gz`
+            - bcm27xx → `toolchain-bcm27xx-*.tar.gz` / `.img.gz`
 
             ### Download
             - `toolchain-*.tar.gz` — universal tarball
